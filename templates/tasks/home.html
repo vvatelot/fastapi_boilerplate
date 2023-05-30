@@ -1,0 +1,29 @@
+{% import 'tasks/partials/macros.html' as taskMacro with context %}
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>{{ title }}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Done</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            {{ taskMacro.displayTaskRow(task.id, task.status, task.name, task.description) }}
+            {% endfor %}
+            {{ taskMacro.editTaskRow() }}
+        </tbody>
+    </table>
+</div>
+</div>
+
+<script src="{{ url_for('static', path='/js/main.js') }}"></script>
+{% endblock %}

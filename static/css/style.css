@@ -1,0 +1,12 @@
+/*
+ * Custom CSS
+ */
+
+:root {
+    --bs-body-bg: var(--bs-gray-100);
+}
+
+tr.htmx-swapping {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
