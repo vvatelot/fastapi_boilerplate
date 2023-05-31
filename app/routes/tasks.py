@@ -4,7 +4,7 @@ from fastapi import APIRouter, Form
 from fastapi.requests import Request
 from fastapi.responses import HTMLResponse
 
-from app.task.models import Task
+from app.models.tasks import Task
 from config.template import templates
 
 router = APIRouter(prefix="/tasks")

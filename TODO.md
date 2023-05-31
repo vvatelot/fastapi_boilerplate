@@ -3,11 +3,12 @@
 - [ ] Documentation
 - [ ] Tests
 - [ ] Examples
-- [ ] Config base de données
-- [ ] Gestion des migrations
+- [x] Config base de données
+- [x] Gestion des migrations
 - [ ] Docker
 - [ ] CI/CD
-- [ ] Authentification
 - [ ] Gestion des erreurs
 - [ ] Gestion des logs
 - [ ] Code refactoring
+  - [ ] Import auto des models
+  - [ ] Import auto des routes
