@@ -1,0 +1,10 @@
+*
+!.env
+!app
+!alembic.ini
+!config
+!database
+!docker
+!pyproject.toml
+!poetry.lock
+!main.py

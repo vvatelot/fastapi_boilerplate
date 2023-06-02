@@ -5,10 +5,10 @@
 - [ ] Examples
 - [x] Config base de données
 - [x] Gestion des migrations
-- [ ] Docker
+- [x] Docker
 - [ ] CI/CD
 - [ ] Gestion des erreurs
 - [ ] Gestion des logs
-- [ ] Code refactoring
-  - [ ] Import auto des models
-  - [ ] Import auto des routes
+- [x] Code refactoring
+  - [x] Import auto des models
+  - [x] Import auto des routes

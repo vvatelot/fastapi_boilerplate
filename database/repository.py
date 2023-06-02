@@ -25,7 +25,6 @@ class BaseRepository:
         **kwargs
     ):
         query = select(cls)
-        print("where: ", where)
         if limit:
             query = query.limit(limit)
         if offset:
