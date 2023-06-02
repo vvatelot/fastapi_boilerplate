@@ -1,7 +1,13 @@
-from app.common.views import router as common_router
-from app.task.views import router as task_router
+import os
+from importlib import import_module
+
 from fastapi import APIRouter
 
 router = APIRouter()
-router.include_router(common_router)
-router.include_router(task_router)
+
+
+for file in os.listdir(os.path.dirname(__file__)):
+    if file.endswith(".py") and not file.startswith("__"):
+        router.include_router(
+            import_module(f"app.routes.{file.replace('.py', '')}").router
+        )
