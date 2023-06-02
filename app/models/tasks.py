@@ -8,3 +8,9 @@ class Task(BaseRepository, SQLModel, table=True):
     name: str | None
     status: bool = False
     description: str | None = None
+
+    @classmethod
+    async def toggle_status(cls, task_id: int, **kwargs) -> None:
+        task = await Task.get(task_id)
+        task.status = not task.status
+        await task.update(task_id, status=task.status)

@@ -1,7 +1,7 @@
 {% macro displayTaskRow(id, status, name, description) %}
 <tr>
     <th scope="row">{{ id }}</th>
-    <td><span class="form-switch"><input hx-ext='json-enc' hx-vals='{"status": "{{ not status }}"}' hx-put="{{ url_for('toggle_task_status', task_id=id) }}" hx-trigger="change" class="form-check-input" type="checkbox" role="switch" {% if status %}checked{% endif %}></span></td>
+    <td><span class="form-switch"><input hx-put="{{ url_for('toggle_task_status', task_id=id) }}" hx-trigger="change" class="form-check-input" type="checkbox" role="switch" {% if status %}checked{% endif %}></span></td>
     <td>{{ name }} </td>
     <td>{{ description }}</td>
     <td>
@@ -13,7 +13,7 @@
 
 {% macro editTaskRow(id, name, description) %}
 <tr>
-    <form hx-post="{% if id %}{{ url_for('add_task') }}{% else %}{{ url_for('add_task') }}{% endif %}" hx-swap="beforebegin">
+    <form {% if id %} hx-put="{{ url_for('update_task', task_id=id) }}" hx-swap="outerHTML" {% else %} hx-post="{{ url_for('add_task') }}" hx-swap="beforebegin" {% endif %}" hx-target="closest tr">
         <th scope="row">{{ id }}</th>
         <td></td>
         <td><input type="text" class="form-control" name="name" value="{{ name }}"></td>

@@ -32,10 +32,33 @@ async def delete_task(task_id: int):
 
 
 @router.put(
-    "/{task_id}", tags=["tasks"], response_class=HTMLResponse, name="toggle_task_status"
+    "/{task_id}", tags=["tasks"], response_class=HTMLResponse, name="update_task"
 )
-async def toggle_task_status(task_id: int, task: Task):
-    await Task.update(task_id, status=bool(task.status))
+async def update_task(
+    request: Request,
+    task_id: int,
+    name: Annotated[str, Form()],
+    description: Annotated[str, Form()],
+):
+    await Task.update(task_id, name=name, description=description)
+
+    return templates.TemplateResponse(
+        name="tasks/partials/task-row.html",
+        context={
+            "request": request,
+            "task": Task(id=task_id, name=name, description=description),
+        },
+    )
+
+
+@router.put(
+    "/{task_id}/toggle_status",
+    tags=["tasks"],
+    response_class=HTMLResponse,
+    name="toggle_task_status",
+)
+async def toggle_task_status(task_id: int):
+    await Task.toggle_status(task_id)
 
     return HTMLResponse("")
 
