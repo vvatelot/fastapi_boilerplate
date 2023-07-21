@@ -22,6 +22,8 @@ services:
       TZ: Europe/Paris
     depends_on:
       - db
+    volumes:
+      - "./:/code/"
 
 volumes:
   db:
