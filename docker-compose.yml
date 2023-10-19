@@ -1,14 +1,4 @@
 services:
-  db:
-    image: postgres:alpine
-    restart: always
-    volumes:
-      - db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ecoindex
-      POSTGRES_USER: ecoindex
-      POSTGRES_PASSWORD: ecoindex
-
   app:
     build:
       context: ./
@@ -17,13 +7,7 @@ services:
     ports:
       - "8001:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://ecoindex:ecoindex@db/ecoindex
       DEBUG: False
       TZ: Europe/Paris
-    depends_on:
-      - db
     volumes:
       - "./:/code/"
-
-volumes:
-  db:

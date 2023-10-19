@@ -25,5 +25,5 @@
 </div>
 </div>
 
-<script src="{{ url_for('static', path='/js/main.js') }}"></script>
+<script src="{{ request.app.url_path_for('static', path='/js/main.js') }}"></script>
 {% endblock %}
