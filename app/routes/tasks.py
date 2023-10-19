@@ -5,7 +5,7 @@ from fastapi.requests import Request
 from fastapi.responses import HTMLResponse
 
 from config.template import templates
-from database.engine import prisma
+from database.engine import db
 
 router = APIRouter(prefix="/tasks")
 
@@ -17,7 +17,7 @@ async def homepage(request: Request):
         context={
             "request": request,
             "title": "Todo List",
-            "tasks": await prisma.task.find_many(),
+            "tasks": await db.task.find_many(),
         },
     )
 
@@ -26,7 +26,7 @@ async def homepage(request: Request):
     path="/{task_id}", tags=["tasks"], response_class=HTMLResponse, name="delete_task"
 )
 async def delete_task(task_id: int):
-    await prisma.task.delete({"id": task_id})
+    await db.task.delete({"id": task_id})
 
     return HTMLResponse("")
 
@@ -44,7 +44,7 @@ async def update_task(
         name="tasks/partials/task-row.html",
         context={
             "request": request,
-            "task": await prisma.task.update(
+            "task": await db.task.update(
                 where={"id": task_id}, data={"name": name, "description": description}
             ),
         },
@@ -58,8 +58,8 @@ async def update_task(
     name="toggle_task_status",
 )
 async def toggle_task_status(task_id: int, request: Request):
-    task = await prisma.task.find_unique(where={"id": task_id})
-    updated_task = await prisma.task.update(
+    task = await db.task.find_unique(where={"id": task_id})
+    updated_task = await db.task.update(
         where={"id": task_id}, data={"status": not task.status}
     )
 
@@ -80,9 +80,7 @@ async def add_task(
         name="tasks/partials/task-row.html",
         context={
             "request": request,
-            "task": await prisma.task.create(
-                {"name": name, "description": description}
-            ),
+            "task": await db.task.create({"name": name, "description": description}),
         },
     )
 
@@ -95,6 +93,6 @@ async def get_task_form(request: Request, task_id: int):
         name="tasks/partials/task-form.html",
         context={
             "request": request,
-            "task": await prisma.task.find_unique(where={"id": task_id}),
+            "task": await db.task.find_unique(where={"id": task_id}),
         },
     )

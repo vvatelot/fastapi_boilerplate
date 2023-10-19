@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.routes import router
 from config.env import DEBUG
-from database.engine import prisma
+from database.engine import db
 
 
 def init_app():
@@ -14,11 +14,11 @@ def init_app():
 
     @app.on_event(event_type="startup")
     async def on_startup():
-        await prisma.connect()
+        await db.connect()
 
     @app.on_event(event_type="shutdown")
     async def on_shutdown():
-        await prisma.disconnect()
+        await db.disconnect()
 
     return app
 
