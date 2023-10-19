@@ -4,8 +4,8 @@ from fastapi import APIRouter, Form
 from fastapi.requests import Request
 from fastapi.responses import HTMLResponse
 
-from app.models.tasks import Task
 from config.template import templates
+from database.engine import prisma
 
 router = APIRouter(prefix="/tasks")
 
@@ -17,7 +17,7 @@ async def homepage(request: Request):
         context={
             "request": request,
             "title": "Todo List",
-            "tasks": await Task.get_all(),
+            "tasks": await prisma.task.find_many(),
         },
     )
 
@@ -26,7 +26,7 @@ async def homepage(request: Request):
     path="/{task_id}", tags=["tasks"], response_class=HTMLResponse, name="delete_task"
 )
 async def delete_task(task_id: int):
-    await Task.delete(task_id)
+    await prisma.task.delete({"id": task_id})
 
     return HTMLResponse("")
 
@@ -40,13 +40,13 @@ async def update_task(
     name: Annotated[str, Form()],
     description: Annotated[str, Form()],
 ):
-    await Task.update(task_id, name=name, description=description)
-
     return templates.TemplateResponse(
         name="tasks/partials/task-row.html",
         context={
             "request": request,
-            "task": Task(id=task_id, name=name, description=description),
+            "task": await prisma.task.update(
+                where={"id": task_id}, data={"name": name, "description": description}
+            ),
         },
     )
 
@@ -57,23 +57,32 @@ async def update_task(
     response_class=HTMLResponse,
     name="toggle_task_status",
 )
-async def toggle_task_status(task_id: int):
-    await Task.toggle_status(task_id)
+async def toggle_task_status(task_id: int, request: Request):
+    task = await prisma.task.find_unique(where={"id": task_id})
+    updated_task = await prisma.task.update(
+        where={"id": task_id}, data={"status": not task.status}
+    )
 
-    return HTMLResponse("")
+    return templates.TemplateResponse(
+        name="tasks/partials/task-row.html",
+        context={
+            "request": request,
+            "task": updated_task,
+        },
+    )
 
 
 @router.post("/", tags=["tasks"], response_class=HTMLResponse, name="add_task")
 async def add_task(
     request: Request, name: Annotated[str, Form()], description: Annotated[str, Form()]
 ):
-    task = await Task.create(name, description)
-
     return templates.TemplateResponse(
         name="tasks/partials/task-row.html",
         context={
             "request": request,
-            "task": task,
+            "task": await prisma.task.create(
+                {"name": name, "description": description}
+            ),
         },
     )
 
@@ -82,12 +91,10 @@ async def add_task(
     "/{task_id}", tags=["tasks"], response_class=HTMLResponse, name="get_task_form"
 )
 async def get_task_form(request: Request, task_id: int):
-    task = await Task.get(task_id)
-
     return templates.TemplateResponse(
         name="tasks/partials/task-form.html",
         context={
             "request": request,
-            "task": task,
+            "task": await prisma.task.find_unique(where={"id": task_id}),
         },
     )

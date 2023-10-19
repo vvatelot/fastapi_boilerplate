@@ -1,0 +1,18 @@
+datasource db {
+    provider = "sqlite"
+    url      = "file:dev.db"
+}
+
+generator db {
+    provider             = "prisma-client-py"
+    interface            = "asyncio"
+    recursive_type_depth = 5
+    previewFeatures      = ["multiSchema"]
+}
+
+model Task {
+    id          Int     @id @default(autoincrement())
+    name        String
+    status      Boolean @default(false)
+    description String?
+}

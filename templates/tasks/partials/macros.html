@@ -1,19 +1,24 @@
 {% macro displayTaskRow(id, status, name, description) %}
-<tr>
+<tr {% if status==True %}class="text-secondary" {% endif %}>
     <th scope="row">{{ id }}</th>
-    <td><span class="form-switch"><input hx-put="{{ url_for('toggle_task_status', task_id=id) }}" hx-trigger="change" class="form-check-input" type="checkbox" role="switch" {% if status %}checked{% endif %}></span></td>
+    <td><span class="form-switch"><input hx-put="{{ url_for('toggle_task_status', task_id=id) }}" hx-trigger="change"
+                class="form-check-input" type="checkbox" role="switch" {% if status %}checked{% endif %}
+                hx-target="closest tr" hx-swap="outerHTML"></span></td>
     <td>{{ name }} </td>
     <td>{{ description }}</td>
     <td>
-        <button type="button" class="btn btn-primary" hx-get="{{ url_for('get_task_form', task_id=id) }}" hx-target="closest tr" hx-swap="outerHTML">Edit</button>
-        <button type="button" class="btn btn-danger" hx-confirm="Are you sure?" hx-swap="outerHTML swap:1s" hx-target="closest tr" hx-delete="{{ url_for('delete_task', task_id=id) }}">X</button>
+        <button type="button" class="btn btn-primary" hx-get="{{ url_for('get_task_form', task_id=id) }}"
+            hx-target="closest tr" hx-swap="outerHTML">Edit</button>
+        <button type="button" class="btn btn-danger" hx-confirm="Are you sure?" hx-swap="outerHTML swap:1s"
+            hx-target="closest tr" hx-delete="{{ url_for('delete_task', task_id=id) }}">X</button>
     </td>
 </tr>
 {% endmacro %}
 
 {% macro editTaskRow(id, name, description) %}
 <tr>
-    <form {% if id %} hx-put="{{ url_for('update_task', task_id=id) }}" hx-swap="outerHTML" {% else %} hx-post="{{ url_for('add_task') }}" hx-swap="beforebegin" {% endif %}" hx-target="closest tr">
+    <form {% if id %} hx-put="{{ url_for('update_task', task_id=id) }}" hx-swap="outerHTML" {% else %}
+        hx-post="{{ url_for('add_task') }}" hx-swap="beforebegin" {% endif %}" hx-target="closest tr">
         <th scope="row">{{ id }}</th>
         <td></td>
         <td><input type="text" class="form-control" name="name" value="{{ name }}"></td>
