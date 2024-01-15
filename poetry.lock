@@ -546,13 +546,13 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.4)", "pytest-co
 
 [[package]]
 name = "prisma"
-version = "0.11.0"
+version = "0.12.0"
 description = "Prisma Client Python is an auto-generated and fully type-safe database client"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "prisma-0.11.0-py3-none-any.whl", hash = "sha256:22bb869e59a2968b99f3483bb417717273ffbc569fd1e9ceed95e5614cbaf53a"},
-    {file = "prisma-0.11.0.tar.gz", hash = "sha256:3f2f2fd2361e1ec5ff655f2a04c7860c2f2a5bc4c91f78ca9c5c6349735bf693"},
+    {file = "prisma-0.12.0-py3-none-any.whl", hash = "sha256:4b90438bb8030f71a33bfb66fdf2ce1e342a28ee524e4c2702d9f73643571d6f"},
+    {file = "prisma-0.12.0.tar.gz", hash = "sha256:ec22804caae37555bd9ffa5efdcc630b2bed77187d13da5269715b1ad51a35f9"},
 ]
 
 [package.dependencies]
@@ -562,6 +562,7 @@ jinja2 = ">=2.11.2"
 nodeenv = "*"
 pydantic = ">=1.8.0,<3"
 python-dotenv = ">=0.12.0"
+StrEnum = {version = "*", markers = "python_version < \"3.11\""}
 tomlkit = "*"
 typing-extensions = ">=4.0.1"
 
@@ -894,6 +895,22 @@ anyio = ">=3.4.0,<5"
 
 [package.extras]
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
+
+[[package]]
+name = "strenum"
+version = "0.4.15"
+description = "An Enum that inherits from str."
+optional = false
+python-versions = "*"
+files = [
+    {file = "StrEnum-0.4.15-py3-none-any.whl", hash = "sha256:a30cda4af7cc6b5bf52c8055bc4bf4b2b6b14a93b574626da33df53cf7740659"},
+    {file = "StrEnum-0.4.15.tar.gz", hash = "sha256:878fb5ab705442070e4dd1929bb5e2249511c0bcf2b0eeacf3bcd80875c82eff"},
+]
+
+[package.extras]
+docs = ["myst-parser[linkify]", "sphinx", "sphinx-rtd-theme"]
+release = ["twine"]
+test = ["pylint", "pytest", "pytest-black", "pytest-cov", "pytest-pylint"]
 
 [[package]]
 name = "tomli"
@@ -1242,4 +1259,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "decd1c65e6c994a00254e2b9de777cc31913814479ca177b9ecb0e0d4c98a58e"
+content-hash = "49cec42edb9c8d718ea4def8477681b9367dd1a1bb4dee27a5de484958239c56"
