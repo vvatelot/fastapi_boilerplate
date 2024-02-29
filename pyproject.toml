@@ -14,7 +14,7 @@ gunicorn = ">=20.1,<22.0"
 prisma = ">=0.10,<0.13"
 
 [tool.poetry.group.dev.dependencies]
-ruff = ">=0.1,<0.3"
+ruff = ">=0.1,<0.4"
 black = ">=23.10,<25.0"
 
 [build-system]
