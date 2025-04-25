@@ -574,14 +574,14 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.4)", "pytest-co
 
 [[package]]
 name = "prisma"
-version = "0.12.0"
+version = "0.15.0"
 description = "Prisma Client Python is an auto-generated and fully type-safe database client"
 optional = false
-python-versions = ">=3.7.0"
+python-versions = ">=3.8.0"
 groups = ["main"]
 files = [
-    {file = "prisma-0.12.0-py3-none-any.whl", hash = "sha256:4b90438bb8030f71a33bfb66fdf2ce1e342a28ee524e4c2702d9f73643571d6f"},
-    {file = "prisma-0.12.0.tar.gz", hash = "sha256:ec22804caae37555bd9ffa5efdcc630b2bed77187d13da5269715b1ad51a35f9"},
+    {file = "prisma-0.15.0-py3-none-any.whl", hash = "sha256:de949cc94d3d91243615f22ff64490aa6e2d7cb81aabffce53d92bd3977c09a4"},
+    {file = "prisma-0.15.0.tar.gz", hash = "sha256:5cd6402aa8322625db3fc1152040404e7fc471fe7f8fa3a314fa8a99529ca107"},
 ]
 
 [package.dependencies]
@@ -589,11 +589,11 @@ click = ">=7.1.2"
 httpx = ">=0.19.0"
 jinja2 = ">=2.11.2"
 nodeenv = "*"
-pydantic = ">=1.8.0,<3"
+pydantic = ">=1.10.0,<3"
 python-dotenv = ">=0.12.0"
 StrEnum = {version = "*", markers = "python_version < \"3.11\""}
 tomlkit = "*"
-typing-extensions = ">=4.0.1"
+typing-extensions = ">=4.5.0"
 
 [package.extras]
 all = ["nodejs-bin"]
@@ -1313,4 +1313,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "4eddd2665815417a94a32218bebb28da8405555f1b6d5bfbf726556f68af0690"
+content-hash = "752b069179c6a7020ecba7443c7c4fe281ba59c18a31ca725395f9625f880827"
