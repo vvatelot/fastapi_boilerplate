@@ -5,7 +5,7 @@ services:
       dockerfile: ./docker/dockerfile
     restart: always
     ports:
-      - "8001:8000"
+      - "8000:8000"
     environment:
       DEBUG: False
       TZ: Europe/Paris

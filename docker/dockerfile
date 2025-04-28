@@ -1,14 +1,8 @@
-FROM python:3.11-slim as requirements-stage
-WORKDIR /tmp
-RUN pip install poetry
-COPY ./pyproject.toml ./poetry.lock /tmp/
-RUN poetry export --output=requirements.txt --without-hashes
-
-FROM python:3.11-slim
+FROM python:3.12-slim
 WORKDIR /code
-COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-RUN pip install asyncpg
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+COPY ./uv.lock ./pyproject.toml ./README.md /code/
+RUN uv sync --frozen
 COPY ./ /code/
 COPY ./docker/entrypoint.sh /usr/bin/entrypoint
 RUN chmod +x /usr/bin/entrypoint

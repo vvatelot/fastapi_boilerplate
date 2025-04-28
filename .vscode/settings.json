@@ -1,0 +1,22 @@
+{
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+    },
+    "ruff.organizeImports": true,
+    "ruff.importStrategy": "fromEnvironment",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports.ruff": "explicit",
+        "source.unusedImports": "explicit"
+    },
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.languageServer": "Pylance",
+    "python.analysis.autoImportCompletions": true,
+    "files.associations": {
+        "**/templates/**/*.html": "jinja-html"
+    }
+}
