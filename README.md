@@ -9,7 +9,7 @@ For the frontend, it uses [Bootstrap](https://getbootstrap.com/) and [HTMX](http
 ## Requirements
 
 - [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/) v2 for running the project
-- [Python 3.10+](https://www.python.org/) and [Poetry](https://python-poetry.org/) for development
+- [Python 3.12+](https://www.python.org/) and [uv](https://docs.astral.sh/uv/) for development
 
 ## Quickstart
 
@@ -18,27 +18,34 @@ For the frontend, it uses [Bootstrap](https://getbootstrap.com/) and [HTMX](http
 ```bash
 cp docker-compose.override.yml.dist docker-compose.override.yml 
 docker compose up
+
+# Service is running on http://localhost:8000
 ```
 
 ### Development
 
+
+To improve development experience, a devcontainer configuration is available. To setup a development environment, you can simply use [Vscode Devcontainer](https://youtu.be/b1RavPr_878). Once the devcontainer is up, just run the command `uv run fastapi dev ./app/main.py` to start the dev server that will be available on [localhost:8000](http://localhost:8000)
+
+Else, you can follow those steps to configure the development environment on your host:
+
+
 ```bash
 # Install dependencies
-poetry install
+uv sync --all-groups --frozen
+
+# Install prisma client
+uv run prisma migrate dev --schema database/schema.prisma
 
 # Run the project
-poetry run uvicorn app.main:app --reload
+uv run fastapi dev ./app/main.py
 ```
 
 ### Project quality
 
 ```bash
-# Run tests
-poetry run pytest
-
 # Run linters
-poetry run ruff . --fix
-poetry run black .
+uv run ruff check . --fix
 ```
 
 ## Application structure

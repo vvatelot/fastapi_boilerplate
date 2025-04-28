@@ -1,0 +1,35 @@
+{
+    "name": "Fastapi Boilerplate container",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
+    "postCreateCommand": "uv sync --all-groups --frozen && uv run prisma migrate dev --schema database/schema.prisma",
+    "features": {
+        "ghcr.io/va-h/devcontainers-features/uv": {
+            "version": "latest"
+        }
+    },
+    "containerEnv": {
+        "UV_LINK_MODE": "copy",
+        "TZ": "Europe/Paris"
+    },
+    "forwardPorts": [
+        8000
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "charliermarsh.ruff",
+                "mhutchie.git-graph",
+                "ms-azuretools.vscode-docker",
+                "ms-python.mypy-type-checker",
+                "samuelcolvin.jinjahtml",
+                "tamasfe.even-better-toml",
+                "ue.alphabetical-sorter",
+                "yzhang.markdown-all-in-one",
+                "esbenp.prettier-vscode"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python"
+            }
+        }
+    }
+}

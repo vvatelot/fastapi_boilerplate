@@ -1,22 +1,22 @@
-[tool.poetry]
+[project]
 name = "fastapi-boilerplate"
 version = "0.1.0"
-description = ""
-authors = ["Vincent Vatelot <vincent.vatelot@ik.me>"]
+description = "Simple TODO list project using Fastapi, Prisma, HTMX and Bootstrap"
+authors = [{name = "Vincent Vatelot", email = "vincent.vatelot@ik.me"}]
 readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "jinja2>=3.1.6",
+    "prisma>=0.15.0",
+    "python-multipart>=0.0.20",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-uvicorn = ">=0.22,<0.28"
-jinja2 = "^3.1.2"
-fastapi = { extras = ["all"], version = ">=0.95.2,<0.111.0" }
-gunicorn = ">=20.1,<22.0"
-prisma = ">=0.10,<0.13"
+[tool.ruff]
+line-length = 127
 
-[tool.poetry.group.dev.dependencies]
-ruff = ">=0.1,<0.4"
-black = ">=23.10,<25.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "ruff>=0.11.7",
+]

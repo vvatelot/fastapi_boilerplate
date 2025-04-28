@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -6,19 +8,18 @@ from config.env import DEBUG
 from database.engine import db
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await db.connect()
+    yield
+    await db.disconnect()
+
+
 def init_app():
-    app = FastAPI(debug=DEBUG)
+    app = FastAPI(debug=DEBUG, lifespan=lifespan)
 
     app.mount("/static", StaticFiles(directory="static"), name="static")
     app.include_router(router)
-
-    @app.on_event(event_type="startup")
-    async def on_startup():
-        await db.connect()
-
-    @app.on_event(event_type="shutdown")
-    async def on_shutdown():
-        await db.disconnect()
 
     return app
 

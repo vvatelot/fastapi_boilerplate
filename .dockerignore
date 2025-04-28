@@ -6,5 +6,6 @@
 !database
 !docker
 !pyproject.toml
-!poetry.lock
+!uv.lock
 !main.py
+!README.md
